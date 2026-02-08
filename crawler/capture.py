@@ -10,7 +10,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 # ========== CONFIG ==========
 KEYWORD = "gun"
 SAVE_DIR = f"screenshots/{KEYWORD}"
-MAX_ITEMS = 50
+MAX_ITEMS = 1000
 SEARCH_URL = f"https://www.google.com/search?q={KEYWORD}&tbm=isch"
 
 os.makedirs(SAVE_DIR, exist_ok=True)
