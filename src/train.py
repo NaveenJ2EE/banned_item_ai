@@ -1,3 +1,5 @@
+import os
+
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
@@ -26,4 +28,12 @@ for epoch in range(5):
         optimizer.step()
     print(f"Epoch {epoch+1} done")
 
-torch.save(model.state_dict(), "models/banned_model.pth")
+# Use absolute path logic to ensure it saves to the project root
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SAVE_PATH = os.path.join(BASE_DIR, "models", "banned_model.pth")
+
+# Ensure the directory exists
+os.makedirs(os.path.dirname(SAVE_PATH), exist_ok=True)
+
+torch.save(model.state_dict(), SAVE_PATH)
+print(f"[✓] Model saved successfully at: {SAVE_PATH}")
