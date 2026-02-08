@@ -1,0 +1,145 @@
+1️⃣ MobileNetV3 CPU Requirements (Reality)
+Model you’re using
+
+MobileNetV3-Small
+
+Input: 224 × 224
+
+FP32 (default PyTorch)
+
+No GPU
+
+Single Inference Cost (CPU)
+
+On a modern server CPU:
+
+Metric	Value
+Inference time	20–50 ms
+CPU usage	~1 core burst
+Memory	< 300 MB
+Model size	~5–6 MB
+
+➡️ Very lightweight.
+
+2️⃣ Throughput Per CPU Core
+Conservative numbers (production-safe)
+CPU cores	Images/sec
+1 vCPU	15–20
+2 vCPU	30–40
+4 vCPU	60–80
+8 vCPU	120–160
+
+This assumes:
+
+Batch size = 1
+
+FastAPI + PyTorch
+
+No heavy preprocessing
+
+3️⃣ Example: Flipkart-Scale Scenarios
+🧪 Small / POC
+
+Use case: testing, pilot
+
+2 vCPU
+
+4 GB RAM
+
+~2,000 images/hour
+
+✅ Cheap
+✅ Easy to deploy
+
+🚀 Medium Scale
+
+Use case: moderate listing volume
+
+8 vCPU
+
+16 GB RAM
+
+~400K images/day
+
+✅ Good for category-wide scans
+
+🏭 Large Scale (Realistic Flipkart numbers)
+
+Assume:
+
+1 million listings/day
+
+Average 2 images/listing
+
+Total images/day = 2M
+
+Required throughput:
+
+2,000,000 images / 86,400 sec ≈ 23 images/sec
+
+👉 Infra required:
+
+2 × 4 vCPU pods (safe)
+
+Or 1 × 8 vCPU pod
+
+That’s it.
+No GPU required.
+
+4️⃣ With OCR Included (Important!)
+
+OCR is more expensive than MobileNet.
+
+Tesseract OCR cost:
+
+~100–200 ms per image
+
+CPU-heavy
+
+Combined pipeline (Image + OCR):
+Component	Time
+MobileNet	30 ms
+OCR	150 ms
+Decision logic	~5 ms
+Total	~185 ms
+
+👉 Effective throughput:
+
+~5 images/sec per core
+
+5️⃣ Recommended Production Setup
+Minimum Safe Setup
+Inference Service:
+- 8 vCPU
+- 16 GB RAM
+- Autoscaling enabled
+
+
+OCR Service:
+- 8 vCPU
+- 16 GB RAM
+
+Split them ❗
+Never run OCR + CV in the same pod.
+
+6️⃣ Cost Approximation (Cloud)
+AWS / GCP equivalent
+Instance	Monthly Cost (approx)
+8 vCPU + 16 GB	₹18k–25k
+16 vCPU	₹35k–45k
+
+👉 Much cheaper than GPU.
+
+7️⃣ When CPU Is NOT Enough
+
+You’ll need GPU only if:
+
+YOLO / DETR
+
+Video streams
+
+10M images/day
+
+Latency < 10ms
+
+Otherwise → CPU is correct choice.
