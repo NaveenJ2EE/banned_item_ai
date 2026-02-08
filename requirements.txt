@@ -1,0 +1,11 @@
+torch
+torchvision
+opencv-python
+pillow
+scikit-learn
+easyocr
+fastapi
+uvicorn
+numpy
+
+# pip install timm huggingface_hub
