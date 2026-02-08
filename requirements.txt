@@ -9,3 +9,6 @@ uvicorn
 numpy
 
 # pip install timm huggingface_hub
+# pip uninstall selenium -y
+# pip install selenium webdriver-manager
+# pip install google-images-download
