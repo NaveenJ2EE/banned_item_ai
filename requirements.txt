@@ -12,3 +12,8 @@ numpy
 # pip uninstall selenium -y
 # pip install selenium webdriver-manager
 # pip install google-images-download
+# pip install duckduckgo_search pillow
+# pip install ddgs
+# pip uninstall duckduckgo_search -y
+#  pip install ddgs requests pillow tqdm
+# pip install Pillow imagehash opencv-python tqdm
