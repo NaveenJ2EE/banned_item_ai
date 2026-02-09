@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Define the absolute path to the model
 MODEL_PATH = os.path.join(BASE_DIR, "models", "banned_model.pth")
 # Put any image path here to test
-IMAGE_TO_TEST = "C:/Users/navee/Documents/banned_item_ai/test_images/phone.jpg"
+IMAGE_TO_TEST = "C:/Users/navee/Documents/banned_item_ai/test_images/gon.jpg"
 CLASS_NAMES = ["gun", "not_gun"] # Ensure this matches your folder order
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
